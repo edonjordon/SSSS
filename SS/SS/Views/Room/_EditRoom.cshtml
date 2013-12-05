@@ -1,0 +1,96 @@
+﻿@model SS.Models.Room
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="modal-body">
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @Html.HiddenFor(model => model.RoomId)
+
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Building:</strong> @Html.EditorFor(model => model.Building)
+            @Html.ValidationMessageFor(model => model.Building)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Room Number:</strong> @Html.EditorFor(model => model.RoomNumber)
+            @Html.ValidationMessageFor(model => model.RoomNumber)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Capacity:</strong> @Html.EditorFor(model => model.Capacity)
+            @Html.ValidationMessageFor(model => model.Capacity)
+        </div>
+        @if (Model.HasSpeakers.Equals(true))
+        {
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Speakers:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasSpeakers" name="HasSpeakers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+                </div>
+                @Html.ValidationMessageFor(model => model.HasSpeakers)  
+            </div>
+        }    
+        @if (Model.HasSpeakers.Equals(false))
+        {
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Speakers:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasSpeakers" name="HasSpeakers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true">
+                </div>
+                @Html.ValidationMessageFor(model => model.HasSpeakers)  
+            </div>
+        }    
+             
+        @if (Model.HasProjector.Equals(true))
+        {  
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Projector:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasProjector" name="HasProjector" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+                </div>
+                @Html.ValidationMessageFor(model => model.HasProjector)
+            </div>   
+        }   
+        @if (Model.HasProjector.Equals(false))
+        {  
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Projector:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasProjector" name="HasProjector" data-val-required="The HasSpeakers field is required." type="checkbox" value="true">
+                </div>
+                @Html.ValidationMessageFor(model => model.HasProjector)
+            </div>   
+        } 
+         
+        @if (Model.HasComputers.Equals(true))
+        {     
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Computers:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasComputers" name="HasComputers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+                </div>
+                @Html.ValidationMessageFor(model => model.HasComputers)
+            </div>
+        }
+        @if (Model.HasComputers.Equals(false))
+        {     
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Computers:</strong> <div class="make-switch" data-on-label="YES" data-off-label="NO">
+                    <input data-val="true" id="HasComputers" name="HasComputers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true">
+                </div>
+                @Html.ValidationMessageFor(model => model.HasComputers)
+            </div>
+        }
+
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </p>
+    </fieldset>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

@@ -1,0 +1,166 @@
+﻿@model SS.ViewModels.CourseRuleViewModel
+
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>New Course</h2>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Course</legend>
+
+        <div class="editor-label">
+            Subject
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourse.Subject)
+            @Html.ValidationMessageFor(model => model.aCourse.Subject)
+        </div>
+
+        <div class="editor-label">
+            Course Number
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourse.CourseNumber)
+            @Html.ValidationMessageFor(model => model.aCourse.CourseNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.aCourse.Department)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourse.Department)
+            @Html.ValidationMessageFor(model => model.aCourse.Department)
+        </div>
+
+        <div class="editor-label">
+            Course Description
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourse.Description)
+            @Html.ValidationMessageFor(model => model.aCourse.Description)
+        </div>
+
+
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+  </td>  
+    <td>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    </td>
+  <td>
+    <fieldset>
+        <legend>CourseRule</legend>
+
+        <div class="editor-label">
+            Season Offered
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourseRule.SeasonOffered)
+            @Html.ValidationMessageFor(model => model.aCourseRule.SeasonOffered)
+        </div>
+
+        <div class="editor-label">
+            Required Room Capacity
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.aCourseRule.RoomCapacity)
+            @Html.ValidationMessageFor(model => model.aCourseRule.RoomCapacity)
+        </div>
+
+        <br />
+        Need Speakers?
+        
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                @Html.EditorFor(model => model.aCourseRule.NeedsSpeakers)
+            </div>
+            @Html.ValidationMessageFor(model => model.aCourseRule.NeedsSpeakers)
+        </div>
+        <br />
+        Need Projector?
+        
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                @Html.EditorFor(model => model.aCourseRule.NeedsProjector)
+            </div>
+            @Html.ValidationMessageFor(model => model.aCourseRule.NeedsProjector)
+        </div>
+        <br />
+        Need Computers?
+       
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                @Html.EditorFor(model => model.aCourseRule.NeedsComputers)    
+            </div>
+            @Html.ValidationMessageFor(model => model.aCourseRule.NeedsComputers)
+        </div>
+        <br />
+        <div class="editor-label">
+            Must be taught in this room
+        </div>
+        <div class="editor-field">
+            
+            @*@Html.DropDownList("RoomId", String.Empty)*@
+            @*{
+                @Html.ListBox("RoomId", ViewBag.RoomId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a room..."})
+            }*@
+            
+            <select id="aCourseRule_RoomId" name="aCourseRule.RoomId" data-placeholder="Choose a room..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var rm in ViewBag.RoomId as SelectList){
+                    <option value="@rm.Value">@rm.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.aCourseRule.RoomId)
+        </div>
+
+        <br />
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+
+           </td>
+        </tr>
+</table>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/chosen.jquery.js")
+    @Styles.Render("~/Content/chosen.css")
+}
+
+<script type="text/javascript">
+    $(function () {
+        $(".chosen-select").chosen({max_selected_options: 1});
+    });
+</script>
+
+

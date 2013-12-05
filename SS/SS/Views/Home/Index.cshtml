@@ -1,0 +1,43 @@
+﻿<div class="hero-unit" style="text-align:center">
+
+    @if(User.Identity.IsAuthenticated){
+
+
+             @*if (User.IsInRole("Admin")){*@
+                 
+                @*<h1> Hello, @HttpContext.Current.User.Identity.Name</h1>     
+                <h2> You are logged in as an Admin</h2>
+                <center><p class="lead">Click the button below to visit the Schedule Viewer.</p></center>
+                <center><a class="btn btn-large btn-success" href="/semester/viewschedule">View Scheduler!</a></center>*@
+            @*}*@
+            @*if (User.IsInRole("Client")){*@
+                <h2> Hello, @HttpContext.Current.User.Identity.Name</h2>     
+                @*<h2> You are logged in as a Client</h2>*@
+                <center><p class="lead">Click the button below to visit the Schedule Viewer.</p></center>
+                <center><a class="btn btn-large btn-success" href="/semester/viewschedule">View Scheduler!</a></center>
+            @*}*@
+                <br />
+                @*<a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary btn-large btn-success">
+                  Log Out
+                </a>*@
+    }
+    
+    @if(!User.Identity.IsAuthenticated){
+    
+
+    <h1>Greetings, Traveler.</h1>
+        <br />
+  <p>
+      <br />
+        Please log in to access Scheduler.
+  </p>
+    }
+
+</div>
+   
+<hr />
+<div class="footer-wrapper" style="text-align:center">
+					<footer>
+                        <p>© SSSS</p>
+					</footer>
+		    </div>

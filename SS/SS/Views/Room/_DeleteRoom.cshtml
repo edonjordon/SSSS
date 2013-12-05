@@ -1,0 +1,69 @@
+﻿@model SS.Models.Room
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body">
+<fieldset>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Building:</strong> @Html.TextBoxFor(model => model.Building, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Room Number:</strong> @Html.TextBoxFor(model => model.RoomNumber, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Capacity:</strong> @Html.TextBoxFor(model => model.Capacity, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Speakers:</strong> 
+        @if (Model.HasSpeakers.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.HasSpeakers.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-label">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Projector:</strong> 
+        @if (Model.HasProjector.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.HasProjector.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Has Computers: </strong>
+        @if (Model.HasComputers.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.HasComputers.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <hr />
+    <p align="center">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+    </p>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

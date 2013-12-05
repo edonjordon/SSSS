@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SS.Models.Section>
+
+@{
+    ViewBag.Title = "Scheduler";
+}
+<h2>Sections</h2>
+
+<table class="table tbody table-striped tbody table-hover tbody tr:hover">
+    <thead>
+        <tr>
+            <th>
+                Course
+            </th>
+            <th>
+                Instructor
+            </th>
+            <th>
+                Start/End
+            </th>
+            <th>
+                Room
+            </th>
+             <th>
+                Days Taught
+            </th>
+            <th>
+                Section Number
+            </th>
+            <th>
+                Semester
+            </th>
+        </tr>
+    </thead>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectionCourse.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaughtBy.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaughtInRoom.RoomName)
+                </td>
+                <td>
+                    @if (item.Monday.Equals(true))
+                    {    
+                        <a class="label label-success">Mon</a>     
+                    }
+                    @if (item.Tuesday.Equals(true))
+                    {    
+                        <a class="label label-success">Tues</a>     
+                    }
+                    @if (item.Wednesday.Equals(true))
+                    {    
+                        <a class="label label-success">Wed</a>     
+                    }
+                    @if (item.Thursday.Equals(true))
+                    {    
+                        <a class="label label-success">Thurs</a>     
+                    }
+                    @if (item.Friday.Equals(true))
+                    {    
+                        <a class="label label-success">Fri</a>     
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SectionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SemesterTaughtIn.semesterName)
+                </td>
+            </tr>
+        }    
+</table>

@@ -1,0 +1,103 @@
+﻿@model SS.Models.Section
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body">
+<fieldset>
+    <div class="display-field" style="padding-left:5%">
+         <strong>Section Number:</strong> @Html.TextBoxFor(model => model.SectionNumber, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field"  style="padding-left:13%">
+         <strong>Start Time:</strong> @Html.TextBoxFor(model => model.StartTime, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field" style="padding-left:14%">
+         <strong>End Time:</strong> @Html.TextBoxFor(model => model.EndTime, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field" style="padding-left:13.5%">
+         <strong>Semester:</strong> @Html.TextBoxFor(model => model.SemesterTaughtIn.semesterName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field" style="padding-left:18.5%">
+         <strong>Room:</strong> @Html.TextBoxFor(model => model.TaughtInRoom.RoomName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field" style="padding-left:16.5%">
+         <strong>Course:</strong> @Html.TextBoxFor(model => model.SectionCourse.CourseName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field" style="padding-left:13%">
+        <strong>Instructor:</strong> @Html.TextBoxFor(model => model.TaughtBy.FullName, new { @readonly = "readonly" })        
+    </div>
+    <div class="display-field" style="padding-left:16%">
+         <strong>Monday:</strong>
+        @if (Model.Monday.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Monday.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-field" style="padding-left:15.5%">
+         <strong>Tuesday:</strong>
+        @if (Model.Tuesday.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Tuesday.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-field" style="padding-left:11%">
+         <strong>Wednesday:</strong>
+        @if (Model.Wednesday.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Wednesday.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-field" style="padding-left:14.5%">
+         <strong>Thursday:</strong>
+        @if (Model.Thursday.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Thursday.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+    <div class="display-field" style="padding-left:18.5%">
+        <strong>Friday:</strong>
+        @if (Model.Friday.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Friday.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <hr />
+    <p align="center">
+        <input type="submit" class="btn btn-danger" value="Delete"/>
+    </p>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapjs")
+}

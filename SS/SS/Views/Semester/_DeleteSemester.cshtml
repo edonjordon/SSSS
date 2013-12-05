@@ -1,0 +1,27 @@
+﻿@model SS.Models.Semester
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body"></div>
+<fieldset>
+    <div class="display-field"> 
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Year:</strong> @Html.TextBoxFor(model => model.Year, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Season:</strong> @Html.TextBoxFor(model => model.Season, new { @readonly = "readonly" })
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <hr />
+    <p align="center">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+    </p>
+}
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrapjs")
+}

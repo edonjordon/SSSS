@@ -1,0 +1,33 @@
+﻿@model SS.Models.Semester
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="modal-body">
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @Html.HiddenFor(model => model.SemesterId)
+
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Year:</strong> @Html.EditorFor(model => model.Year)
+            @Html.ValidationMessageFor(model => model.Year)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Season:</strong> @Html.EditorFor(model => model.Season)
+            @Html.ValidationMessageFor(model => model.Season)
+        </div>
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </p>
+    </fieldset>
+}
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

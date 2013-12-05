@@ -1,0 +1,45 @@
+﻿@model SS.Models.Instructor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body">
+<fieldset>
+    <div class="display-field">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>First Name:</strong> @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Last Name:</strong> @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Middle Initial:</strong> @Html.TextBoxFor(model => model.MiddleName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Department:</strong> @Html.TextBoxFor(model => model.Department, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Active: </strong>
+        @if (Model.Active.Equals(true))
+        {
+            <a class="label label-success">Yes</a>
+        }
+        @if (Model.Active.Equals(false))
+        {
+            <a class="label label-danger">No</a>
+        }
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <hr />
+    <p align="center">
+        <input type="submit" class="btn btn-danger" value="Delete"/>
+    </p>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

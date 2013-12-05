@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SS.Models.Semester>
+
+@{
+    ViewBag.Title = "Semesters";
+}
+<script src="jquery.js"></script>
+<script src="bootstrap.js"></script>
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<h2>Semesters</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/Semester/Create" ><i class="icon-plus"></i> New Semester </a>*@
+    <button class="floatLeft btn btn-primary create-semester"><i class="icon-plus"></i> New Semester </button>
+    <br />
+    <br />
+</p>
+
+<div id="create-semester" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">New Semester</h3>
+    </div>
+    <div id="create-semester-container"></div>
+</div>
+
+<div id="edit-semester" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal">Edit Semester</h3>
+    </div>
+    <div id="edit-semester-container"></div>
+</div>
+
+<div id="delete-semester" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal">Delete Semester</h3>
+    </div>
+    <div id="delete-semester-container"></div>
+</div>
+
+<table id="myDatatable" class="table table-hover tbody table-striped" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                Semester
+            </th>
+        
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.semesterName)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.SemesterId }, new { @class="btn btn-mini"})@Html.Raw(" | ")*@
+                    <button class="@("edit" + item.SemesterId) btn btn-mini edit-semester">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.SemesterId)').click(function () {
+
+                            $('#edit-semester-container').load("@Url.Action("Edit", "Semester", new { id = item.SemesterId })");
+                                $('#edit-semester').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.SemesterId }, new { @class="btn btn-mini btn-danger"})@Html.Raw(" | ")*@
+                    <button class="@("delete" + item.SemesterId) btn btn-mini btn-danger delete-semester">Delete</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("delete" + item.SemesterId)').click(function () {
+
+                            $('#delete-semester-container').load("@Url.Action("Delete", "Semester", new { id = item.SemesterId })");
+                                $('#delete-semester').modal('show');
+                            });
+                    </script>
+                    @Html.ActionLink("Copy", "Copy", new { id=item.SemesterId }, new { @class="btn btn-mini btn-inverse"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{ 
+    <script type="text/javascript"> 
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#myDatatable').dataTable({
+                "iDisplayLength": 25,
+                "oLanguage": {
+                    "sSearch": "",
+                    "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                    "sLengthMenu": 'Display <select>' +
+                       '<option value="10">10</option>' +
+                       '<option value="25">25</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">All</option>' +
+                       '</select> records'
+                }
+            });
+
+            $('.create-semester').click(function () {
+                $('#create-semester-container').load("@Url.Action("Create")");
+                $('#create-semester').modal('show');
+            });
+        });
+    </script>
+
+}

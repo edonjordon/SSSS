@@ -1,0 +1,140 @@
+﻿@model IEnumerable<SS.Models.Instructor>
+
+@{
+    ViewBag.Title = "Instructors";
+}
+<script src="jquery.js"></script>
+<script src="bootstrap.js"></script>
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<h2>Instructors</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/Instructor/Create" ><i class="icon-plus"></i> New Instructor </a>*@
+    <button class="floatLeft btn btn-primary create-instructor"><i class="icon-plus"></i> New Instructor </button>
+    <br />
+    <br />
+</p>
+
+<div id="create-instructor" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="CreateModal" align="center">New Instructor</h3>
+    </div>
+    <div id="create-instructor-container"></div>
+</div>
+
+<div id="edit-instructor" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal" align="center">Edit Instructor</h3>
+    </div>
+    <div id="edit-instructor-container"></div>
+</div>
+
+<div id="delete-instructor" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal" align="center">Delete Instructor</h3>
+    </div>
+    <div id="delete-instructor-container"></div>
+</div>
+
+<table id="myDatatable" class="table table-hover tbody table-striped" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                Instructor Name
+            </th>
+            <th>
+                Department
+            </th>
+            <th>
+                Active?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @if (item.Active.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.Active.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.InstructorId }, new { @class="btn btn-mini"})@Html.Raw(" | ")*@
+                    <button class="@("edit" + item.InstructorId) btn btn-mini edit-instructor">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.InstructorId)').click(function () {
+                            $('#edit-instructor-container').load("@Url.Action("Edit", "Instructor", new { id = item.InstructorId })");
+                                $('#edit-instructor').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.InstructorId }, new { @class="btn btn-mini btn-danger"})*@
+                    <button class="@("delete" + item.InstructorId) btn btn-mini btn-danger delete-instructor">Delete</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("delete" + item.InstructorId)').click(function () {
+                            $('#delete-instructor-container').load("@Url.Action("Delete", "Instructor", new { id = item.InstructorId })");
+                                $('#delete-instructor').modal('show');
+                            });
+                    </script>
+                    <div class="btn-group">
+                        <a class="btn btn-mini btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+                        Print Schedule
+                         <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            
+                             @foreach (var sem in ViewBag.SemesterId as SelectList){                               
+                                <li>
+                                    @Html.ActionLink(sem.Text, "PrintSchedule",new { semesterId = sem.Value, instructorId = item.InstructorId } )  
+                                </li>  
+                            }                 
+                         </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#myDatatable').dataTable({
+                "iDisplayLength": 25,
+                "oLanguage": {
+                    "sSearch": "",
+                    "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                    "sLengthMenu": 'Display <select>' +
+                       '<option value="10">10</option>' +
+                       '<option value="25">25</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">All</option>' +
+                       '</select> records'
+                }
+            });
+
+            $('.create-instructor').click(function () {
+                $('#create-instructor-container').load("@Url.Action("Create")" );
+                $('#create-instructor').modal('show');
+            });
+        });
+    </script>
+}

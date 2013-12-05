@@ -1,0 +1,41 @@
+﻿@model SS.Models.UserModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body">
+<fieldset>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>First Name:</strong> @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Last Name:</strong> @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Email:</strong> @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Phone Number:</strong> @Html.TextBoxFor(model => model.Phone, new { @readonly = "readonly" })
+    </div>
+    <div class="display-field">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Role:</strong> 
+        @if (Model.Role.Name.Equals("Admin"))
+        {
+            <a class="label label-success">Admin</a> 
+        }
+        @if (Model.Role.Name.Equals("User"))
+        {
+            <a class="label label-info">User</a> 
+        }
+        @*@Html.DisplayFor(model => model.Role.Name)*@
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-danger" value="Delete" />
+        </p>
+}
+</div>

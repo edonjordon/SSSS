@@ -1,0 +1,44 @@
+﻿@model SS.Models.LogInModel
+
+@{
+    ViewBag.Title = "LogIn";
+}
+
+@using (Html.BeginForm()) {
+    <div class="well" style="margin:0 auto; width:400px">
+
+    <fieldset class="control-grouperror" style="text-align:center">
+        <legend>Log In</legend>
+        <span style="color:red"> @Html.ValidationSummary(true)</span>
+        
+
+        <div class="editor-label">
+            <b>Email</b>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email, new { @placeholder = "example@domain.com"})
+            <br />
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            <b>Password</b>
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Password, new { @placeholder = "Enter password here" })
+            <br /> 
+            <p style="color:red"> @Html.ValidationMessageFor(model => model.Password) </p>
+            
+        </div>
+
+        <p>
+            <button class="btn btn-success" type="submit"> Log In</button>
+            
+            @*<button type="submit" value="Log In" > <i class="icon-pencil"></i> LogIn </button>*@
+        </p>
+    </fieldset>
+   </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

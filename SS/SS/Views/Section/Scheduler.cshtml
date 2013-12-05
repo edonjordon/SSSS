@@ -1,0 +1,242 @@
+﻿@model IEnumerable<SS.ViewModels.SectionConflictViewModel>
+
+@{
+    ViewBag.Title = "Scheduler";
+    Layout = null;
+}
+<div style="overflow:hidden;">
+    @{int count = 0;
+    foreach (var item in Model) {
+        if(count == 0){
+            <h3 class="floatLeft">Sections for @Html.DisplayFor(modelItem => item.aSection.SemesterTaughtIn.semesterName)</h3>
+            count++;
+        }
+    }
+    }
+</div>
+
+<p>
+    @*<a class="btn btn-primary " href="~/Section/Create" ><i class="icon-plus"></i> New Section </a>*@
+    <button class="floatLeft btn btn-primary create-section"><i class="icon-plus"></i> New Section </button>
+    <br />
+    <br />
+</p>
+
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<div id="create-section" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="createModal">New Section</h3>
+    </div>
+    <div id="create-section-container"></div>
+</div>
+
+<div id="edit-section" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal">Edit Section</h3>
+    </div>
+    <div id="edit-section-container"></div>
+</div>
+
+<div id="delete-section" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal">Delete Section</h3>
+    </div>
+    <div id="delete-section-container"></div>
+</div>
+
+<table id="myDatatable" class="table tbody" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                Course
+            </th>
+            <th>
+                Instructor
+            </th>
+            <th>
+                Start/End
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Days Taught
+            </th>
+            <th>
+                Section Number
+            </th>
+            <th>
+                Conflicts
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="SectionId_@item.aSection.SectionId" onclick="clickUnhighlightRow('SectionId_@item.aSection.SectionId')">
+                <td>
+                    @Html.DisplayFor(modelItem => item.aSection.SectionCourse.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aSection.TaughtBy.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aSection.StartTime) - @Html.DisplayFor(modelItem => item.aSection.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aSection.TaughtInRoom.RoomName)
+                </td>
+                <td>
+                    @if (item.aSection.Monday.Equals(true))
+                    {    
+                        <a class="label label-success">Mon</a>
+                             
+                    }
+                    @if (item.aSection.Tuesday.Equals(true))
+                    {    
+                        <a class="label label-success">Tues</a>     
+                    }
+                    @if (item.aSection.Wednesday.Equals(true))
+                    {    
+                        <a class="label label-success">Wed</a>     
+                    }
+                    @if (item.aSection.Thursday.Equals(true))
+                    {    
+                        <a class="label label-success">Thurs</a>     
+                    }
+                    @if (item.aSection.Friday.Equals(true))
+                    {    
+                        <a class="label label-success">Fri</a>     
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.aSection.SectionNumber)
+                </td>
+                <td>
+                 @if (item.aSection.HasConflicts == false)
+                 {
+                     <a class="label label-success">No Conflicts</a> 
+                 }
+
+                 @if (item.aSection.HasConflicts == true)
+                 {  
+                        <div class="btn-group">x
+                            <button type="button" class="btn btn-mini btn-warning dropdown-toggle" data-toggle="dropdown">
+                            Conflicts <span class="caret"></span>
+                          </button>
+
+                          <ul class="dropdown-menu" role="menu">
+
+                           @foreach (var conflict in item.sectionConflicts)
+                           {
+                               if (conflict.roomConflict == false && conflict.instructorConflict == false && conflict.roomConflict == false)
+                               {
+
+                               }
+
+                               else
+                               {
+                                    <li class="SectionId_@conflict.sectionConflicted.SectionId" onclick="clickHighlightRow('SectionId_@conflict.sectionConflicted.SectionId')" ><a href="#">  <span class="label label-inverse select">@conflict.sectionConflicted.SectionCourse.CourseName Section @conflict.sectionConflicted.SectionNumber</span></a></li>
+                                    <li><a href="#">  @if (conflict.instructorConflict.Equals(true))
+                                                      {    
+                                                         <span class="label label-warning">Instructor Conflict</span>     
+                                                      }
+                                    </a></li>
+                                    <li><a href="#">  @if (conflict.roomConflict.Equals(true))
+                                                      {    
+                                                         <span class="label label-warning">Room Conflict</span>     
+                                                      }
+                                    </a></li>
+                                    <li><a href="#">  @if (conflict.cohortConflict.Equals(true))
+                                                      {    
+                                                         <span class="label label-warning">Cohort Conflict</span>     
+                                                      }
+                                    </a></li>  
+                               }
+
+                           }
+                          </ul>
+                        </div>
+                 }
+                </td>
+                
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.aSection.SectionId }, new { @class = "btn btn-mini edit-section" })@Html.Raw(" | ")*@
+                    <button class="@("edit" + item.aSection.SectionId) btn btn-mini edit-section">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.aSection.SectionId)').click(function () {
+
+                            $('#edit-section-container').load("@Url.Action("Edit", "Section", new { id = item.aSection.SectionId })");
+                                $('#edit-section').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.aSection.SectionId }, new { @class = "btn btn-mini btn-danger delete-section" })*@
+                    <button class="@("delete" + item.aSection.SectionId) btn btn-mini btn-danger delete-section">Delete</button>
+                    <script>
+                        $('.@("delete" + item.aSection.SectionId)').click(function () {
+
+                            $('#delete-section-container').load("@Url.Action("Delete", "Section", new { id = item.aSection.SectionId })");
+                                $('#delete-section').modal('show');
+                            });
+                    </script>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ <script type="text/javascript">
+     $(document).ready(function () {
+         /* Initialise the DataTable */
+         var oTable = $('#myDatatable').dataTable({
+             "iDisplayLength": 25,
+             "oLanguage": {
+                 "sSearch": "",
+                 "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                 "sLengthMenu": 'Display <select>'+
+                    '<option value="10">10</option>'+
+                    '<option value="25">25</option>'+
+                    '<option value="50">50</option>'+
+                    '<option value="100">100</option>'+
+                    '<option value="-1">All</option>'+
+                    '</select> records'
+             }
+         });
+
+         $('.create-section').click(function () {
+             $('#create-section-container').load("@Url.Action("Create")");
+                $('#create-section').modal('show');
+            });
+        });
+    </script>
+
+    <script>
+        function highlightRow(classname) {
+            //alert(classname);
+            var row = document.getElementById(classname);
+            row.style.backgroundColor = "pink";
+        }
+
+        function unHighlightRow(classname) {
+            //alert(classname);
+            var row = document.getElementById(classname);
+            row.style.backgroundColor = "";
+        }
+
+        function clickHighlightRow(classname) {
+            //alert(classname);
+            var row = document.getElementById(classname);
+            row.style.backgroundColor = "pink";
+        }
+
+        function clickUnhighlightRow(classname) {
+            //alert(classname);
+            var row = document.getElementById(classname);
+            row.style.backgroundColor = "";
+        }
+
+    </script>

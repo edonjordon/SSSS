@@ -1,0 +1,160 @@
+﻿@model IEnumerable<SS.Models.CourseRule>
+
+@{
+    ViewBag.Title = "Rules";
+}
+
+<h2>Rules</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/Rule/Create" ><i class="icon-plus"></i> New Rule </a>*@
+    <button class="floatLeft btn btn-primary create-rule"><i class="icon-plus"></i> New Rule </button>
+</p>
+
+<div id="create-rule" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="createModal">New Rule</h3>
+    </div>
+    <div id="create-rule-container"></div>
+</div>
+
+<div id="edit-rule" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="editModal">Edit Rule</h3>
+    </div>
+    <div id="edit-rule-container"></div>
+</div>
+
+<div id="delete-rule" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="deleteModal">Delete Rule</h3>
+    </div>
+    <div id="delete-rule-container"></div>
+</div>
+
+<table id="example" class="table tbody table-striped tbody table-hover tbody tr:hover">
+    <thead>
+        <tr>
+            <th>
+                Season Offered
+            </th>
+            <th>
+                Room Capacity
+            </th>
+            <th>
+                Needs Speakers?
+            </th>
+            <th>
+                Needs Projectors?
+            </th>
+            <th>
+                Needs Computers?
+            </th>
+            <th>
+                Rule For
+            </th>
+            <th>
+                Must be taught in
+            </th>
+            @*<th>
+                Must be taught by
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeasonOffered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomCapacity)
+                </td>
+                <td>
+
+                    @if (item.NeedsSpeakers.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.NeedsSpeakers.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+
+                    @if (item.NeedsProjector.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.NeedsProjector.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+
+                    @if (item.NeedsComputers.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.NeedsComputers.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RuleFor.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomTaughtIn.RoomName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.MustBeTaughtBy.FullName)
+                </td>*@
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.RuleId }, new { @class="btn btn-mini"})@Html.Raw(" | ")*@
+                    <button class="@("edit" + item.RuleId) btn btn-mini edit-rule">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.RuleId)').click(function () {
+
+                            $('#edit-rule-container').load("@Url.Action("Edit", "Rule", new { id = item.RuleId })");
+                                $('#edit-rule').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.RuleId }, new { @class="btn btn-mini btn-danger"})*@
+                    <button class="@("delete" + item.RuleId) btn btn-mini btn-danger delete-rule">Delete</button>
+                    <script>
+                        $('.@("delete" + item.RuleId)').click(function () {
+
+                            $('#delete-rule-container').load("@Url.Action("Delete", "Rule", new { id = item.RuleId })");
+                            $('#delete-rule').modal('show');
+                        });
+                    </script>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{ 
+    <script type="text/javascript"> 
+        $(document).ready(function() {
+            /* Initialise the DataTable */
+            var oTable = $('#example').dataTable( {
+                "oLanguage": {
+                    "sSearch": "Search all columns:"
+                }
+            });
+            $('.create-rule').click(function () {
+                $('#create-rule-container').load("@Url.Action("Create")");
+                $('#create-rule').modal('show');
+            });
+        });
+    </script>
+
+}

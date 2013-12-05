@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SS.Models.Room>
+
+@{
+    ViewBag.Title = "Rooms";
+}
+<script src="jquery.js"></script>
+<script src="bootstrap.js"></script>
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<h2>Rooms</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/Room/Create" ><i class="icon-plus"></i> New Room </a>*@
+    <button class="floatLeft btn btn-primary create-room"><i class="icon-plus"></i> New Room </button>
+    <br />
+    <br />
+</p>
+
+<div id="create-room" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel" align="center">New Room</h3>
+    </div>
+    <div id="create-room-container"></div>
+</div>
+
+<div id="edit-room" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal" align="center">Edit Room</h3>
+    </div>
+    <div id="edit-room-container"></div>
+</div>
+
+<div id="delete-room" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal" align="center">Delete Room</h3>
+    </div>
+    <div id="delete-room-container"></div>
+</div>
+
+<table id="myDatatable" class="table table-hover tbody table-striped" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                Room Name
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th>
+                Has Speakers?
+            </th>
+            <th>
+                Has Projector?
+            </th>
+            <th>
+                Has Computers?
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+
+                    @if (item.HasSpeakers.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.HasSpeakers.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+
+                    @if (item.HasProjector.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.HasProjector.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+
+                    @if (item.HasComputers.Equals(true))
+                    {    
+                        <a class="label label-success">Yes</a>     
+                    }
+                    @if (item.HasComputers.Equals(false))
+                    {    
+                        <a class="label label-danger">No</a>     
+                    }
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.RoomId }, new { @class="btn btn-mini"})@Html.Raw(" | ")*@
+                    <button class="@("edit" + item.RoomId) btn btn-mini edit-room">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.RoomId)').click(function () {
+
+                            $('#edit-room-container').load("@Url.Action("Edit", "Room", new { id = item.RoomId })");
+                                $('#edit-room').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.RoomId }, new { @class="btn btn-mini btn-danger"})*@
+                    <button class="@("delete" + item.RoomId) btn btn-mini btn-danger delete-room">Delete</button>
+                    <script>
+                        $('.@("delete" + item.RoomId)').click(function () {
+
+                            $('#delete-room-container').load("@Url.Action("Delete", "Room", new { id = item.RoomId })");
+                                $('#delete-room').modal('show');
+                            });
+                    </script>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{ 
+    <script type="text/javascript"> 
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#myDatatable').dataTable({
+                "iDisplayLength": 25,
+                "oLanguage": {
+                    "sSearch": "",
+                    "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                    "sLengthMenu": 'Display <select>' +
+                       '<option value="10">10</option>' +
+                       '<option value="25">25</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">All</option>' +
+                       '</select> records'
+                }
+            });
+
+            $('.create-room').click(function () {
+                $('#create-room-container').load("@Url.Action("Create")");
+                $('#create-room').modal('show');
+            });
+        });
+    </script>
+
+}

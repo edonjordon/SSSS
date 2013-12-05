@@ -1,0 +1,57 @@
+﻿@model SS.Models.Room
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 align="center">New Room</h2>
+<hr />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <div class="editor-field" style="padding-left:36%">
+            <strong>Building:</strong> @Html.EditorFor(model => model.Building)
+            @Html.ValidationMessageFor(model => model.Building)
+        </div>
+        <div class="editor-field" style="padding-left:32.6%">
+            <strong>Room Number:</strong> @Html.EditorFor(model => model.RoomNumber)
+            @Html.ValidationMessageFor(model => model.RoomNumber)
+        </div>
+        <div class="editor-field" style="padding-left:36%">
+            <strong>Capacity:</strong> @Html.EditorFor(model => model.Capacity) <span style="color:red"> @Html.ValidationMessageFor(model => model.Capacity)</span>
+        </div>
+
+        <div class="editor-field" style="padding-left:33%">
+             <strong>Has Speakers:</strong> <div class="make-switch switch-mini" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                <input data-val="true" id="HasSpeakers" name="HasSpeakers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.HasSpeakers)  
+        </div>
+
+        <div class="editor-field" style="padding-left:33.1%">
+            <strong>Has Projector:</strong> <div class="make-switch switch-mini" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                <input data-val="true" id="HasProjector" name="HasProjector" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.HasProjector)
+        </div>
+
+        <div class="editor-field" style="padding-left:32.2%">
+            <strong>Has Computers:</strong> <div class="make-switch switch-mini" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                <input data-val="true" id="HasComputers" name="HasComputers" data-val-required="The HasSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.HasComputers)
+        </div>
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

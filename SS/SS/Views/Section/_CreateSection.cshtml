@@ -1,0 +1,195 @@
+﻿@model SS.Models.Section
+
+@{
+    ViewBag.Title = "Create";
+} 
+@*<script type="text/javascript" src="~/Scripts/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="~/Scripts/chosen.jquery.js"></script>
+<link rel="stylesheet" href="~/Content/chosen.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.css" />*@
+
+<div class="modal-body">
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div class="editor-field" style="padding-left:6%">
+            <strong>Section Number:</strong> @Html.EditorFor(model => model.SectionNumber)
+            @Html.ValidationMessageFor(model => model.SectionNumber)
+        </div>
+        <div class="editor-field" style="padding-left:14%">
+            <strong>Start Time:</strong> @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+        <div class="editor-field" style="padding-left:15%">
+            <strong>End Time:</strong> @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+        <div class="editor-field" style="padding-left:14%">
+            <strong>Semester:</strong>
+            <select id="SemesterId" name="SemesterId" data-placeholder="Choose a semester..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var sem in ViewBag.SemesterId as SelectList){
+                    <option value="@sem.Value">@sem.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.SemesterId)
+        </div>
+@*        <div class="editor-field">
+            @Html.DropDownList("SemesterId", String.Empty)
+            {
+                @Html.ListBox("SemesterId", ViewBag.SemesterId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a semester..."})
+            }
+        </div>*@
+        <div class="editor-field" style="padding-left:19.5%">
+            <strong>Room:</strong>
+            <select id="RoomId" name="RoomId" data-placeholder="Choose a room..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var rm in ViewBag.RoomId as SelectList){
+                    <option value="@rm.Value">@rm.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.RoomId)
+        </div>
+@*        <div class="editor-field">
+            @Html.DropDownList("RoomId", String.Empty)
+            {
+                @Html.ListBox("RoomId", ViewBag.RoomId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a room..."})
+            }
+        </div>*@
+        <div class="editor-field" style="padding-left:17.5%">
+            <strong>Course:</strong>
+            <select id="CourseId" name="CourseId" data-placeholder="Choose a course..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var crs in ViewBag.CourseId as SelectList){
+                    <option value="@crs.Value">@crs.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.CourseId)
+        </div>
+@*        <div class="editor-field">
+            @Html.DropDownList("CourseId", String.Empty)
+            {
+                @Html.ListBox("CourseId", ViewBag.CourseId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a course..."})
+            }
+        </div>*@
+        <div class="editor-field" style="padding-left:14%">
+            <strong>Instructor:</strong>
+            <select id="InstructorId" name="InstructorId" data-placeholder="Choose an instructor..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var instr in ViewBag.InstructorId as SelectList){
+                    <option value="@instr.Value">@instr.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.InstructorId)
+        </div>
+@*        <div class="editor-field">
+            @Html.DropDownList("InstructorId", String.Empty)
+            {
+                @Html.ListBox("InstructorId", ViewBag.InstructorId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose an instructor..."})
+            }
+        </div>*@
+        <div class="editor-field" style="padding-left:17%">
+            <strong>Monday:</strong> <div class="make-switch switch-mini" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Monday" name="Monday" data-val-required="The NeedSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Monday)
+        </div>
+
+        <div class="editor-field" style="padding-left:16.5%">
+            <strong>Tuesday:</strong> <div class="make-switch switch-mini" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Tuesday" name="Tuesday" data-val-required="The NeedSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Tuesday)
+        </div>
+
+        <div class="editor-field" style="padding-left:12%">
+            <strong>Wednesday:</strong> <div class="make-switch switch-mini" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Wednesday" name="Wednesday" data-val-required="The NeedSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Wednesday)
+        </div>
+
+        <div class="editor-field" style="padding-left:15.5%">
+            <strong>Thursday:</strong> <div class="make-switch switch-mini" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Thursday" name="Thursday" data-val-required="The NeedSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Thursday)
+        </div>
+
+        <div class="editor-field" style="padding-left:19.5%">
+            <strong>Friday:</strong> <div class="make-switch switch-mini" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Friday" name="Friday" data-val-required="The NeedSpeakers field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Friday)
+        </div>
+@*        <div class="btn-group" data-toggle="buttons-checkbox">
+            <button type="button" id="Monday" name="Monday" class="btn btn-primary">Monday</button>
+            <button type="button" id="Tuesday" name="Tuesday" class="btn btn-primary">Tuesday</button>
+            <button type="button" id="Wednesday" name="Wednesday" class="btn btn-primary">Wednesday</button>
+            <button type="button" id="Thursday" name="Thursday" class="btn btn-primary">Thursday</button>
+            <button type="button" id="Friday" name="Friday" class="btn btn-primary">Friday</button>
+        </div>*@
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </p>
+    </fieldset>
+}
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@*  @Scripts.Render("~/Scripts/chosen.jquery.js")
+    @Styles.Render("~/Content/chosen.css")*@
+    @Scripts.Render("~/bundles/bootstrapjs")
+}
+<script type="text/javascript">
+    $(function () {
+        $(".chosen-select").chosen({ max_selected_options: 1, allow_single_deselect: true });
+    });
+</script>
+
+<script type="text/javascript" src="~/Scripts/chosen.jquery.js"></script>
+<link rel="stylesheet" href="~/Content/chosen.css" />

@@ -1,0 +1,33 @@
+﻿@model SS.Models.Course
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="modal-body">
+<fieldset>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Subject:</strong> @Html.TextBoxFor(model => model.Subject, new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Course Number:</strong> @Html.TextBoxFor(model => model.CourseNumber,new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Department:</strong> @Html.TextBoxFor(model => model.Department,new { @readonly = "readonly" })
+    </div>
+    <div class="display-label">
+         <strong>Course Description:</strong> @Html.TextBoxFor(model => model.Description, new { @readonly = "readonly" })
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <hr />
+    <p align="center">
+        <input type="submit" class="btn btn-danger" value="Delete"/>
+    </p>
+}
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

@@ -1,0 +1,125 @@
+﻿@model SS.Models.Section
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Section</legend>
+
+        @Html.HiddenFor(model => model.SectionId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SectionNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SectionNumber)
+            @Html.ValidationMessageFor(model => model.SectionNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Monday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Monday)
+            @Html.ValidationMessageFor(model => model.Monday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tuesday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tuesday)
+            @Html.ValidationMessageFor(model => model.Tuesday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Wednesday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Wednesday)
+            @Html.ValidationMessageFor(model => model.Wednesday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Thursday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Thursday)
+            @Html.ValidationMessageFor(model => model.Thursday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Friday)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Friday)
+            @Html.ValidationMessageFor(model => model.Friday)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SemesterId, "SemesterTaughtIn")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SemesterId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SemesterId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RoomId, "TaughtInRoom")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RoomId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RoomId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CourseId, "SectionCourse")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CourseId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CourseId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InstructorId, "TaughtBy")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("InstructorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.InstructorId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

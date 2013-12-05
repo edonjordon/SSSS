@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SS.Models.Course>
+
+@{
+    ViewBag.Title = "Courses";
+}
+<script src="jquery.js"></script>
+<script src="bootstrap.js"></script>
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<h2>Courses</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/Course/Create" ><i class="icon-plus"></i> New Course </a>*@
+    <button class="floatLeft btn btn-primary create-course"><i class="icon-plus"></i> New Course </button>
+    <br />
+    <br />
+</p>
+
+<div id="create-course" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="CreateModal" align="center">New Course</h3>
+    </div>
+    <div id="create-course-container"></div>
+</div>
+
+<div id="edit-course" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal" align="center">Edit Course</h3>
+    </div>
+    <div id="edit-course-container"></div>
+</div>
+
+<div id="delete-course" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal" align="center">Delete Course</h3>
+    </div>
+    <div id="delete-course-container"></div>
+</div>
+
+<table id="myDatatable" class="table table-hover tbody table-striped" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                Course Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+<tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }, new { @class="btn btn-mini"})@Html.Raw(" | ")*@
+                <button class="@("edit" + item.CourseId) btn btn-mini edit-course">Edit</button>@Html.Raw(" | ")
+                <script>
+                    $('.@("edit" + item.CourseId)').click(function () {
+                        $('#edit-course-container').load("@Url.Action("Edit", "Course", new { id = item.CourseId })");
+                        $('#edit-course').modal('show');
+                    });
+                </script>
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.CourseId }, new { @class="btn btn-mini btn-danger"})*@
+                <button class="@("delete" + item.CourseId) btn btn-mini btn-danger delete-course">Delete</button>
+                <script>
+                    $('.@("delete" + item.CourseId)').click(function () {
+                        $('#delete-course-container').load("@Url.Action("Delete", "Course", new { id = item.CourseId })");
+                        $('#delete-course').modal('show');
+                    });
+                </script>
+            </td>
+        </tr>
+    }
+</tbody>
+
+</table>
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#myDatatable').dataTable({
+                "iDisplayLength": 25,
+                "oLanguage": {
+                    "sSearch": "",
+                    "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                    "sLengthMenu": 'Display <select>' +
+                       '<option value="10">10</option>' +
+                       '<option value="25">25</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">All</option>' +
+                       '</select> records'
+                }
+            });
+
+            $('.create-course').click(function () {
+                $('#create-course-container').load("@Url.Action("Create")");
+                $('#create-course').modal('show');
+            });
+        });
+    </script>
+
+}

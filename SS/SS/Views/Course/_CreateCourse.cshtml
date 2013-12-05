@@ -1,0 +1,43 @@
+﻿@model SS.Models.Course
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="modal-body">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Subject:</strong> @Html.EditorFor(model => model.Subject)
+            @Html.ValidationMessageFor(model => model.Subject)
+        </div>
+        <div class="editor-label">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Course Number:</strong> @Html.EditorFor(model => model.CourseNumber)
+            @Html.ValidationMessageFor(model => model.CourseNumber)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Department:</strong> @Html.EditorFor(model => model.Department)
+            @Html.ValidationMessageFor(model => model.Department)
+        </div>
+        <div class="editor-field">
+            <strong>Course Description:</strong> @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </p>
+    </fieldset>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

@@ -1,0 +1,161 @@
+﻿@model IEnumerable<SS.Models.UserModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+<script src="jquery.js"></script>
+<script src="bootstrap.js"></script>
+<script type="text/javascript"> $(document).ready(function () { $('.dropdown-toggle').dropdown(); }); </script>
+
+<h2>Users</h2>
+
+<p>
+    @*<a class="btn btn-primary" href="~/User/Create" ><i class="icon-plus"></i> Add user</a>*@
+    <button class="floatLeft btn btn-primary create-user"><i class="icon-plus"></i> New User </button>
+    <br />
+    <br />
+</p>
+
+<div id="create-user" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel" align="center">New User</h3>
+    </div>
+    <div id="create-user-container"></div>
+</div>
+
+<div id="edit-user" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="EditModal" align="center">Edit User</h3>
+    </div>
+    <div id="edit-user-container"></div>
+</div>
+
+<div id="reset-user" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="ResetModal" align="center">Reset Password</h3>
+    </div>
+    <div id="reset-user-container"></div>
+</div>
+
+<div id="delete-user" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="DeleteModal">Delete User</h3>
+    </div>
+    <div id="delete-user-container"></div>
+</div>
+    
+<table id="myDatatable" class="table table-hover tbody table-striped" style="margin-bottom:15px;">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Role
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.UserID }, new { @class="btn btn-mini"}) |*@
+                    <button class="@("edit" + item.UserID) btn btn-mini edit-user">Edit</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("edit" + item.UserID)').click(function () {
+
+                            $('#edit-user-container').load("@Url.Action("Edit", "User", new { id = item.UserID })");
+                                $('#edit-user').modal('show');
+                            });
+                    </script>
+                    @*@Html.ActionLink("Reset Password", "ResetPassword", new { id=item.UserID }, new { @class="btn btn-mini"}) |*@
+                    <button class="@("reset" + item.UserID) btn btn-mini reset-user">Reset Password</button>@Html.Raw(" | ")
+                    <script>
+                        $('.@("reset" + item.UserID)').click(function () {
+
+                            $('#reset-user-container').load("@Url.Action("ResetPassword", "User", new { id = item.UserID })");
+                            $('#reset-user').modal('show');
+                        });
+                    </script>
+                    @*@Html.ActionLink("Delete", "Delete", new { id=item.UserID }, new { @class="btn btn-mini btn-danger"})*@
+                    @if (HttpContext.Current.User.Identity.Name == item.Email)
+                    {
+                    <button class="@("delete" + item.UserID) btn btn-mini btn-danger delete-user" disabled>Delete</button>
+                    }
+                    else
+                    {
+                    <button class="@("delete" + item.UserID) btn btn-mini btn-danger delete-user">Delete</button>
+                    }
+                    <script>
+                        $('.@("delete" + item.UserID)').click(function () {
+
+                            $('#delete-user-container').load("@Url.Action("Delete", "User", new { id = item.UserID })");
+                                $('#delete-user').modal('show');
+                            });
+                    </script>
+                </td>
+            </tr>
+        }
+    </tbody>   
+</table>
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /* Initialise the DataTable */
+            var oTable = $('#myDatatable').dataTable({
+                "iDisplayLength": 25,
+                "oLanguage": {
+                    "sSearch": "",
+                    "sInfo": "Showing <b>_START_</b>-<b>_END_</b> out of <b>_TOTAL_</b> records",
+                    "sLengthMenu": 'Display <select>' +
+                       '<option value="10">10</option>' +
+                       '<option value="25">25</option>' +
+                       '<option value="50">50</option>' +
+                       '<option value="100">100</option>' +
+                       '<option value="-1">All</option>' +
+                       '</select> records'
+                }
+            });
+
+            $('.create-user').click(function () {
+                $('#create-user-container').load("@Url.Action("Create")");
+                $('#create-user').modal('show');
+            });
+            $('.edit-user').click(function () {
+                $('#edit-user-container').load("@Url.Action("Edit")");
+                           $('#edit-user').modal('show');
+                       });
+        });
+    </script>
+
+}

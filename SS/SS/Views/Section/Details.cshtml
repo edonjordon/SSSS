@@ -1,0 +1,99 @@
+﻿@model SS.Models.Section
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Section</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SectionNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SectionNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.StartTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EndTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Monday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Monday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Tuesday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tuesday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Wednesday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Wednesday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Thursday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Thursday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Friday)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Friday)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SemesterTaughtIn.Year)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SemesterTaughtIn.Year)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaughtInRoom.Building)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaughtInRoom.Building)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SectionCourse.Department)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SectionCourse.Department)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaughtBy.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaughtBy.FirstName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SectionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

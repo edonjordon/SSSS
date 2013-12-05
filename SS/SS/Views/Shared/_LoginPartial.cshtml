@@ -1,0 +1,30 @@
+﻿@if (Request.IsAuthenticated) {
+
+    <div class="btn-group">
+        <a class="btn btn-primary"> @User.Identity.Name</a>
+       @* <a class="btn btn-primary" href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-user icon-white"></i>Log Out</a>*@
+        <a class="btn btn-primary dropdown-toggle-primary" data-toggle="dropdown"><span class="caret"></span></a>            
+           
+        <ul class ="dropdown-menu">
+            @*<li> @User.Identity.Name</li>*@
+            <li >@Html.ActionLink("Change Password", "ChangePassword", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li> 
+             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })){
+            @Html.AntiForgeryToken() }
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-ban-circle"></i>Log off</a></li>
+        </ul>
+    </div>
+ 
+} else {
+        //HIDE LOGIN BUTTON
+        @*<a class="btn btn-primary" href="~/Account/LogIn">Log In</a>*@
+@*        <a class="btn btn-primary dropdown-toggle-primary" data-toggle="dropdown"><span class="caret"></span></a>    *@
+         <!--wan to get of dropdonw-menu since it has only only option: Rabin        
+    <ul = class="dropdown-menu">
+       
+        <li class ="badge">// @*@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })*@ //</li>
+        <li > @* @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) *@</li>
+      
+    </ul>
+    -->
+         
+}

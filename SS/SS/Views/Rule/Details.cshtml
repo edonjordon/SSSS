@@ -1,0 +1,71 @@
+﻿@model SS.Models.CourseRule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CourseRule</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SeasonOffered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SeasonOffered)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RoomCapacity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoomCapacity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NeedsSpeakers)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NeedsSpeakers)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NeedsProjector)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NeedsProjector)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NeedsComputers)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NeedsComputers)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RuleFor.Department)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RuleFor.Department)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RoomTaughtIn.Building)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoomTaughtIn.Building)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MustBeTaughtBy.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MustBeTaughtBy.FirstName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RuleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

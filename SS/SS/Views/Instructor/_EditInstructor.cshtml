@@ -1,0 +1,58 @@
+﻿@model SS.Models.Instructor
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="modal-body">
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.HiddenFor(model => model.InstructorId)
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>First Name:</strong> @Html.EditorFor(model => model.FirstName, new { @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Last Name:</strong> @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Middle Initial:</strong> @Html.EditorFor(model => model.MiddleName)
+            @Html.ValidationMessageFor(model => model.MiddleName)
+        </div>
+        <div class="editor-field">
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Department:</strong> @Html.EditorFor(model => model.Department)
+            @Html.ValidationMessageFor(model => model.Department)
+        </div> 
+        @if (Model.Active.Equals(true))
+        {
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Active: </strong><div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                <input data-val="true" id="Active" name="Active" data-val-required="The Active field is required." type="checkbox" value="true" checked>
+            </div>
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+        }
+        @if (Model.Active.Equals(false))
+        {
+            <div class="editor-field">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>Active: </strong><div class="make-switch" data-on-label="YES" data-off-label="NO">
+                <input data-val="true" id="Active" name="Active" data-val-required="The Active field is required." type="checkbox" value="true">
+            </div>
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+        }
+        <hr />
+        <p align="center">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </p>
+    </fieldset>
+}
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/bootstrapcss")
+@Scripts.Render("~/bundles/jqueryNew")
+@Scripts.Render("~/bundles/bootstrapjs")

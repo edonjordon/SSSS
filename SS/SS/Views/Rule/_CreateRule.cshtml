@@ -1,0 +1,136 @@
+﻿@model SS.Models.CourseRule
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="modal-body">
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CourseRule</legend>
+
+        <div class="editor-label">
+            Season Offered
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SeasonOffered)
+            @Html.ValidationMessageFor(model => model.SeasonOffered)
+        </div>
+
+        <div class="editor-label">
+            Required Room Capacity
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RoomCapacity)
+            @Html.ValidationMessageFor(model => model.RoomCapacity)
+        </div>
+
+
+        Need Speakers?
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                @Html.EditorFor(Model => Model.NeedsSpeakers)   
+            </div>
+            @Html.ValidationMessageFor(model => model.NeedsSpeakers)
+        </div>
+
+        Need Projector?
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+                @Html.EditorFor(Model => Model.NeedsProjector) 
+            </div>
+            @Html.ValidationMessageFor(model => model.NeedsProjector)
+        </div>
+
+        Need Computers?
+        <div class="editor-field">
+            <div class="make-switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+               @Html.EditorFor(Model => Model.NeedsComputers) 
+            </div>
+            @Html.ValidationMessageFor(model => model.NeedsComputers)
+        </div>
+
+        <div class="editor-label">
+            Rule for
+        </div>
+        <div class="editor-field">
+            @*@Html.DropDownList("CourseId", String.Empty)*@
+            @*{
+                @Html.ListBox("CourseId", ViewBag.CourseId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a course..."})
+            }*@
+            <select id="CourseId" name="CourseId" data-placeholder="Choose a course..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var crs in ViewBag.CourseId as SelectList){
+                    <option value="@crs.Value">@crs.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.CourseId)
+        </div>
+
+        <div class="editor-label">
+            Must be taught in this room
+        </div>
+        <div class="editor-field">
+            @*@Html.DropDownList("RoomId", String.Empty)*@
+            @*{
+                @Html.ListBox("RoomId", ViewBag.RoomId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose a room..."})
+            }*@
+            <select id="RoomId" name="RoomId" data-placeholder="Choose a room..." class="chosen-select" style="width: 250px;" tabindex="-1">
+                <option></option>
+                @foreach (var rm in ViewBag.RoomId as SelectList){
+                    <option value="@rm.Value">@rm.Text</option>
+                }
+            </select>
+            <div class="chosen-container chosen-container-single">
+                <a class="chosen-single" tabindex="-1">
+                    <span></span>
+                    <div>
+                        <b></b>
+                    </div>
+                </a>
+            </div>
+            @Html.ValidationMessageFor(model => model.RoomId)
+        </div>
+
+        @*<div class="editor-label">
+            Must be taught by
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("InstructorId", String.Empty)
+            @{
+                @Html.ListBox("InstructorId", ViewBag.InstructorId as SelectList,
+                new {@class = "chosen-select", data_placeholder = "Choose an instructor..."})
+            }
+            @Html.ValidationMessageFor(model => model.InstructorId)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/chosen.jquery.js")
+    @Styles.Render("~/Content/chosen.css")
+}
+<script type="text/javascript">
+    $(function () {
+        $(".chosen-select").chosen({max_selected_options: 1});
+    });
+</script>
